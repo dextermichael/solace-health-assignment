@@ -6,7 +6,7 @@ interface Advocate {
     degree: string;
     specialties: string[];
     yearsOfExperience: number;
-    phoneNumber: string;
+    phoneNumber: number;
   }
 import {
   Chip,
@@ -41,11 +41,12 @@ export default function SearchModule({ advocates }: { advocates: Advocate[] }) {
           advocate.specialties.filter((specialty: String) =>
             specialty.toLocaleLowerCase().includes(searchTerm.toLowerCase())
           ).length > 0 ||
-          advocate.yearsOfExperience.toString().includes(searchTerm.toLowerCase())
+          advocate.yearsOfExperience.toString().includes(searchTerm.toLowerCase()) ||
+          advocate.phoneNumber.toString().includes(searchTerm.toLowerCase())
       );
       return filteredAdvocates;
     }
-  } , [searchTerm]);
+  } , [searchTerm , advocates]);
   const handleSearchTermChange = (e : React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value)
   }
